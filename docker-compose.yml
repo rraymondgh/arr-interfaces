@@ -1,0 +1,15 @@
+services:
+  arr-services:
+    container_name: arr-services
+    image: ghcr.io/rraymondgh/arr-interfaces:latest
+    volumes:
+      - ${HOME}/.config:/config
+    restart: unless-stopped
+    environment:
+      - XDG_CONFIG_HOME=/config
+    ports:
+      - "3335:3335"
+    command:
+      - worker
+      - run
+      - --all

@@ -1,0 +1,50 @@
+version: "3"
+
+tasks:
+  gen:
+    cmds:
+      - task gen-gql
+      - task gen-gql-client
+
+  gen-go:
+    cmds:
+      - go generate ./...
+
+
+  gen-gql:
+    cmds:
+      - go run github.com/99designs/gqlgen generate --config ./internal/gql/gqlgen.yml
+
+  gen-gql-client:
+    dir: ./internal/gqlclient
+    cmds:
+      - rover graph introspect http://localhost:3333/graphql -o schema/schema.graphql
+      - go run github.com/Khan/genqlient 
+
+  lint:
+    cmds:
+      - task lint-golangci
+
+  lint-golangci:
+    cmds:
+      - golangci-lint run --timeout=10m
+
+
+
+  test:
+    cmds:
+      - task test-go
+
+  test-go:
+    cmds:
+      - go test -v ./...
+
+
+
+  build:
+    cmds:
+      - go build -ldflags "-X github.com/rraymondgh/arr-interfaces/internal/version.GitTag=$(git describe --tags --always --dirty)"
+
+
+
+

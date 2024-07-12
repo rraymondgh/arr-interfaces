@@ -1,0 +1,28 @@
+query TorrentContent($infoHash: Hash20) {
+  torrentContentByID {
+    id(infoHash: $infoHash) {
+      items {
+        infoHash
+        torrent {
+          magnetUri
+        }
+        contentType
+        content {
+          id
+          source
+          attributes {
+            key
+            source
+            value
+          }
+        }
+        episodes {
+          seasons {
+            season
+            episodes
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,7 @@
+type Mutation {
+  client: ClientMutation!
+}
+
+type ClientMutation {
+  download(infoHashes: [Hash20!], clientID: ClientID): Void
+}
