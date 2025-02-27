@@ -1,0 +1,38 @@
+
+version: 2
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - id: arr-interfaces
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+    goarch:
+      - amd64
+      - arm64
+    goarm:
+      - 6
+    main: ./main.go
+    binary: arr-interfaces
+    ldflags:
+      # - "-s -w -X github.com/rraymondgh/arr-interfaces/internal/version.GitTag={{.Version}}"
+      - "-s -w -X github.com/rraymondgh/arr-interfaces/internal/version.GitTag={{.Env.VERSION}}"
+
+
+dockers:
+  - image_templates:
+      - "ghcr.io/rraymondgh/{{ .ProjectName }}"
+    goos: linux
+    goarch: amd64
+    dockerfile: goreleaser.Dockerfile
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"

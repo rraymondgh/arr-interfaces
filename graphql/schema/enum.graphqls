@@ -1,0 +1,5 @@
+enum ClientID {
+    Servarr
+    Transmission
+    QBittorrent
+}

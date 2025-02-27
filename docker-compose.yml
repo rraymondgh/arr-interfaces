@@ -1,0 +1,135 @@
+services:
+  arr-interfaces:
+    container_name: arr-interfaces
+    image: ghcr.io/rraymondgh/arr-interfaces:latest
+    # build:
+    #   dockerfile: Dockerfile_arr-interfaces
+    ports:
+      - "3335:3335"
+    restart: unless-stopped
+    environment:
+      - XDG_CONFIG_HOME=/config
+      - MONGODB_URI=mongodb://mongodb:27017/?directConnection=true
+    volumes:
+      - ${HOME}/.config:/config
+    command:
+      - worker
+      - run
+      - --all
+    healthcheck:
+      test: set -o pipefail;curl -fsS http://localhost:3335/status | grep -q '{"status":"OK"'
+      interval: 5s
+    depends_on:
+      meilisearch:
+        condition: service_healthy
+
+    networks:
+      - arr-network
+
+  bitmagnet:
+    # image: bitmagnet:local
+    image: ghcr.io/bitmagnet-io/bitmagnet:v0.10.0-beta.7
+    container_name: bitmagnet
+    ports:
+      - "3333:3333"
+    restart: unless-stopped
+    environment:
+      - XDG_CONFIG_HOME=/config
+    volumes:
+      - ${HOME}/.config:/config
+    command:
+      - worker
+      - run
+      - --keys=http_server
+      - --keys=queue_server
+      - --keys=dht_crawler
+    depends_on:
+      arr-interfaces:
+        condition: service_healthy
+    networks:
+      - arr-network
+
+  meilisearch:
+    container_name: meilisearch
+    image: getmeili/meilisearch:latest
+    restart: always
+    ports:
+      - :7070
+    environment:
+      MEILI_MASTER_KEY: meilisearch
+      MEILI_MAX_INDEXING_MEMORY: 1Gb
+      MEILI_EXPERIMENTAL_DUMPLESS_UPGRADE: "true"
+      # MEILI_IMPORT_DUMP: dumps/20250221-164035276.dump
+    healthcheck:
+      test: set -o pipefail;curl -fsS http://localhost:7700/health | grep -q '{"status":"available"}'
+      timeout: 5s
+    volumes:
+      - ${SSD}/meilisearch:/meili_data
+    networks:
+      - arr-network
+
+  meilisearch-ui:
+    container_name: meilisearch-ui
+    image: riccoxie/meilisearch-ui:latest
+    restart: always
+    ports:
+      - 24900:24900
+    networks:
+      - arr-network
+
+  postgres:
+    container_name: postgres
+    image: postgres:17
+    command:
+      - "-c"
+      - "shared_buffers=256MB"
+      - "-c"
+      - "synchronous_commit=off"
+      - "-c"
+      - "listen_addresses=*"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - PGUSER=postgres
+    volumes:
+      - type: bind
+        source: ${SSD}/postgres_data
+        target: /var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    networks:
+      - arr-network
+    shm_size: 1g
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - pg_isready -U postgres
+      start_period: 20s
+      interval: 10s
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.home
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    ports:
+      - 80:80
+    networks:
+      - arr-network
+
+  caddy:
+    image: caddy:latest
+    container_name: caddy
+    networks:
+      - arr-network
+    restart: always
+    ports:
+      - 7700:7700
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+    
+networks:
+  arr-network:
+    driver: bridge

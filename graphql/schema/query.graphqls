@@ -1,0 +1,9 @@
+type Query {
+  system: SystemQuery!
+}
+
+
+type SystemQuery {
+  version: String!
+  download: Boolean!
+}

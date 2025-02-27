@@ -1,0 +1,6 @@
+query SystemQuery {
+  system {
+    version
+    download
+  }
+}
