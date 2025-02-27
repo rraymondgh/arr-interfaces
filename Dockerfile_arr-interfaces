@@ -1,0 +1,6 @@
+FROM alpine:latest
+RUN ["apk", "--no-cache", "add", "bind-tools", "curl"]
+WORKDIR /app
+COPY dist/arr-interfaces_linux_amd64_v1/arr-interfaces .
+ENV PATH="$PATH:/app"
+ENTRYPOINT ["arr-interfaces"]

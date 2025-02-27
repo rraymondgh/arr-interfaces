@@ -1,7 +1,7 @@
 package workerfx
 
 import (
-	"github.com/rraymondgh/arr-interface/internal/boilerplate/worker"
+	"github.com/rraymondgh/arr-interfaces/internal/boilerplate/worker"
 	"go.uber.org/fx"
 )
 

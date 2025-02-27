@@ -1,8 +1,8 @@
 package clifx
 
 import (
-	"github.com/rraymondgh/arr-interface/internal/boilerplate/cli"
-	"github.com/rraymondgh/arr-interface/internal/boilerplate/cli/args"
+	"github.com/rraymondgh/arr-interfaces/internal/boilerplate/cli"
+	"github.com/rraymondgh/arr-interfaces/internal/boilerplate/cli/args"
 	"go.uber.org/fx"
 )
 

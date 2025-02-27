@@ -3,7 +3,7 @@ package httpserver
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/hellofresh/health-go/v5"
-	"github.com/rraymondgh/arr-interface/internal/boilerplate/httpserver"
+	"github.com/rraymondgh/arr-interfaces/internal/boilerplate/httpserver"
 	"go.uber.org/fx"
 )
 

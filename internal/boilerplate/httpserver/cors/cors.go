@@ -4,7 +4,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/rraymondgh/arr-interface/internal/boilerplate/httpserver"
+	"github.com/rraymondgh/arr-interfaces/internal/boilerplate/httpserver"
 	"github.com/rs/cors"
 	gincors "github.com/rs/cors/wrapper/gin"
 	"go.uber.org/fx"

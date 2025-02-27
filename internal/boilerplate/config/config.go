@@ -8,9 +8,9 @@ import (
 	"strings"
 
 	validator "github.com/go-playground/validator/v10"
+	"github.com/go-viper/mapstructure/v2"
 	"github.com/iancoleman/strcase"
-	"github.com/mitchellh/mapstructure"
-	"github.com/rraymondgh/arr-interface/internal/boilerplate/config/configresolver"
+	"github.com/rraymondgh/arr-interfaces/internal/boilerplate/config/configresolver"
 	"go.uber.org/fx"
 )
 

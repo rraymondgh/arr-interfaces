@@ -1,7 +1,7 @@
 package validationfx
 
 import (
-	"github.com/rraymondgh/arr-interface/internal/boilerplate/validation"
+	"github.com/rraymondgh/arr-interfaces/internal/boilerplate/validation"
 	"go.uber.org/fx"
 )
 

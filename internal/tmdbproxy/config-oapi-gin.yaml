@@ -1,0 +1,19 @@
+package: tmdbproxyoapi
+generate:
+  gin-server: true
+  # embedded-spec: true
+  # strict-server: true
+output-options:
+  include-operation-ids:
+    - find-by-id
+    - search-movie
+    - movie-details
+    - movie-external-ids
+    - search-tv
+    - tv-series-details
+    - tv-series-external-ids
+    - authentication-validate-key
+  disable-type-aliases-for-type: []
+  skip-prune: true  
+
+output: oapi/oapi-gen.go

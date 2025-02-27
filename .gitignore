@@ -21,5 +21,9 @@
 go.work
 go.work.sum
 arr-interface
+arr-interfaces
+.env
 
 dist/
+jupyter/.ipynb_checkpoints/
+jupyter/

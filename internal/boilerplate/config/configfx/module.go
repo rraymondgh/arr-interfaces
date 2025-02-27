@@ -1,45 +1,77 @@
 package configfx
 
 import (
+	"os"
+	"strings"
+
 	"github.com/adrg/xdg"
-	"github.com/rraymondgh/arr-interface/internal/boilerplate/config"
-	"github.com/rraymondgh/arr-interface/internal/boilerplate/config/configresolver"
+	"github.com/go-playground/validator/v10"
+	"github.com/rraymondgh/arr-interfaces/internal/boilerplate/config"
+	"github.com/rraymondgh/arr-interfaces/internal/boilerplate/config/configresolver"
 	"go.uber.org/fx"
 )
 
 func New() fx.Option {
-	options := []fx.Option{
+	osEnv := ReadOsEnv()
+
+	var options []fx.Option
+
+	var extraConfigFiles []string
+	if osEnv[extraFilesKey] != "" {
+		extraConfigFiles = strings.Split(osEnv[extraFilesKey], ",")
+	}
+	for i, file := range extraConfigFiles {
+		options = append(options,
+			fx.Provide(
+				fx.Annotated{
+					Group: "config_resolvers",
+					Target: func(val *validator.Validate) (configresolver.Resolver, error) {
+						return configresolver.NewFromYamlFile(
+							file,
+							false,
+							val,
+							configresolver.WithPriority(-i),
+						)
+					},
+				},
+			))
+	}
+
+	options = append(options,
 		fx.Provide(config.New),
 		fx.Provide(fx.Annotated{
 			Group: "config_resolvers",
 			Target: func() (configresolver.Resolver, error) {
-				return configresolver.NewFromOsEnv(
-					configresolver.WithPriority(-10),
+				return configresolver.NewEnv(
+					osEnv,
+					configresolver.WithPriority(-len(extraConfigFiles)),
 				), nil
 			},
 		}),
 		fx.Provide(
 			fx.Annotated{
 				Group: "config_resolvers",
-				Target: func() (configresolver.Resolver, error) {
+				Target: func(val *validator.Validate) (configresolver.Resolver, error) {
 					return configresolver.NewFromYamlFile(
 						"./config.yml",
 						true,
+						val,
 						configresolver.WithPriority(10),
 					)
 				},
 			},
 		),
-	}
+	)
 	if configFilePath, err := xdg.ConfigFile("arr-interface/config.yml"); err == nil {
 		options = append(options,
 			fx.Provide(
 				fx.Annotated{
 					Group: "config_resolvers",
-					Target: func() (configresolver.Resolver, error) {
+					Target: func(val *validator.Validate) (configresolver.Resolver, error) {
 						return configresolver.NewFromYamlFile(
 							configFilePath,
 							true,
+							val,
 							configresolver.WithPriority(20),
 						)
 					},
@@ -52,3 +84,15 @@ func New() fx.Option {
 		fx.Options(options...),
 	)
 }
+
+func ReadOsEnv() map[string]string {
+	rawEnv := os.Environ()
+	env := make(map[string]string, len(rawEnv))
+	for _, rawEnvEntry := range rawEnv {
+		parts := strings.SplitN(rawEnvEntry, "=", 2)
+		env[parts[0]] = parts[1]
+	}
+	return env
+}
+
+const extraFilesKey = "EXTRA_CONFIG_FILES"

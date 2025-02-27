@@ -1,7 +1,7 @@
 package workercmd
 
 import (
-	"github.com/rraymondgh/arr-interface/internal/boilerplate/worker"
+	"github.com/rraymondgh/arr-interfaces/internal/boilerplate/worker"
 	"github.com/urfave/cli/v2"
 	"go.uber.org/fx"
 )

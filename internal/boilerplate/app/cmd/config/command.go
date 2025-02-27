@@ -2,7 +2,7 @@ package configcmd
 
 import (
 	"github.com/jedib0t/go-pretty/v6/table"
-	"github.com/rraymondgh/arr-interface/internal/boilerplate/config"
+	"github.com/rraymondgh/arr-interfaces/internal/boilerplate/config"
 	"github.com/urfave/cli/v2"
 	"go.uber.org/fx"
 	"go.uber.org/zap"

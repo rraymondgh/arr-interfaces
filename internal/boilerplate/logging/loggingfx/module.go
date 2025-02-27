@@ -1,8 +1,8 @@
 package loggingfx
 
 import (
-	"github.com/rraymondgh/arr-interface/internal/boilerplate/config/configfx"
-	"github.com/rraymondgh/arr-interface/internal/boilerplate/logging"
+	"github.com/rraymondgh/arr-interfaces/internal/boilerplate/config/configfx"
+	"github.com/rraymondgh/arr-interfaces/internal/boilerplate/logging"
 	"go.uber.org/fx"
 	"go.uber.org/fx/fxevent"
 	"go.uber.org/zap"

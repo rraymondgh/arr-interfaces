@@ -21,6 +21,28 @@ tasks:
       - rover graph introspect http://localhost:3333/graphql -o schema/schema.graphql
       - go run github.com/Khan/genqlient 
 
+
+
+
+  gen-tmdb:
+    vars:
+      # SCHEMA3: https://developer.themoviedb.org/openapi/64542913e1f86100738e227f
+      SCHEMA3: tmdbspec
+    dir: ./internal/tmdbproxyregen
+    cmds:
+      - for: ['config-oapi-gin.yaml', 'config-oapi-gin-strict.yaml', 'config-oapi-model.yaml']
+        cmd: |
+          go run github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen \
+          -config {{.ITEM}} \
+          {{.SCHEMA3}}
+
+  docker-local:
+    cmds:
+      - docker container rm --force arr-interfaces
+      - docker image rm arr-interfaces-arr-interfaces
+      - goreleaser build --clean --snapshot
+      - docker compose -f docker-compose.yml up -d
+
   lint:
     cmds:
       - task lint-golangci

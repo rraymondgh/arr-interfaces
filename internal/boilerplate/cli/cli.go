@@ -5,7 +5,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/rraymondgh/arr-interface/internal/version"
+	"github.com/rraymondgh/arr-interfaces/internal/version"
 	"github.com/urfave/cli/v2"
 	"go.uber.org/fx"
 	"go.uber.org/zap"
@@ -30,7 +30,7 @@ func New(p Params) (Result, error) {
 	sort.Slice(commands, func(i, j int) bool {
 		return strings.Compare(commands[i].Name, commands[j].Name) < 0
 	})
-	name := "arr-interface"
+	name := "arr-interfaces"
 	if version.GitTag != "" {
 		name += " " + version.GitTag
 	}

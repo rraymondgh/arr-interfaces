@@ -1,9 +1,9 @@
 package app
 
 import (
-	"github.com/rraymondgh/arr-interface/internal/app/appfx"
-	"github.com/rraymondgh/arr-interface/internal/boilerplate/cli/hooks"
-	"github.com/rraymondgh/arr-interface/internal/boilerplate/logging/loggingfx"
+	"github.com/rraymondgh/arr-interfaces/internal/app/appfx"
+	"github.com/rraymondgh/arr-interfaces/internal/boilerplate/cli/hooks"
+	"github.com/rraymondgh/arr-interfaces/internal/boilerplate/logging/loggingfx"
 	"github.com/urfave/cli/v2"
 	"go.uber.org/fx"
 	"go.uber.org/zap"

@@ -3,7 +3,7 @@ package configfx
 import (
 	"errors"
 
-	"github.com/rraymondgh/arr-interface/internal/boilerplate/config"
+	"github.com/rraymondgh/arr-interfaces/internal/boilerplate/config"
 	"go.uber.org/fx"
 )
 

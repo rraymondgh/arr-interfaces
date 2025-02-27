@@ -1,8 +1,8 @@
 package healthcheckfx
 
 import (
-	"github.com/rraymondgh/arr-interface/internal/boilerplate/healthcheck"
-	"github.com/rraymondgh/arr-interface/internal/boilerplate/healthcheck/httpserver"
+	"github.com/rraymondgh/arr-interfaces/internal/boilerplate/healthcheck"
+	"github.com/rraymondgh/arr-interfaces/internal/boilerplate/healthcheck/httpserver"
 	"go.uber.org/fx"
 )
 

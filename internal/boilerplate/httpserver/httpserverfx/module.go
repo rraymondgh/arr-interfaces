@@ -1,9 +1,9 @@
 package httpserverfx
 
 import (
-	"github.com/rraymondgh/arr-interface/internal/boilerplate/config/configfx"
-	"github.com/rraymondgh/arr-interface/internal/boilerplate/httpserver"
-	"github.com/rraymondgh/arr-interface/internal/boilerplate/httpserver/cors"
+	"github.com/rraymondgh/arr-interfaces/internal/boilerplate/config/configfx"
+	"github.com/rraymondgh/arr-interfaces/internal/boilerplate/httpserver"
+	"github.com/rraymondgh/arr-interfaces/internal/boilerplate/httpserver/cors"
 	"go.uber.org/fx"
 )
 

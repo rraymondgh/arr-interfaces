@@ -1,8 +1,8 @@
 package versionfx
 
 import (
-	"github.com/rraymondgh/arr-interface/internal/version"
-	"github.com/rraymondgh/arr-interface/internal/version/healthcheck"
+	"github.com/rraymondgh/arr-interfaces/internal/version"
+	"github.com/rraymondgh/arr-interfaces/internal/version/healthcheck"
 	"go.uber.org/fx"
 )
 

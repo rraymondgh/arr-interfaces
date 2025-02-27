@@ -10,8 +10,8 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/rraymondgh/arr-interface/internal/boilerplate/httpserver/ginzap"
-	"github.com/rraymondgh/arr-interface/internal/boilerplate/worker"
+	"github.com/rraymondgh/arr-interfaces/internal/boilerplate/httpserver/ginzap"
+	"github.com/rraymondgh/arr-interfaces/internal/boilerplate/worker"
 	"go.uber.org/fx"
 	"go.uber.org/zap"
 )
