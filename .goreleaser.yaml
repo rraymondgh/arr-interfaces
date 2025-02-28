@@ -25,7 +25,8 @@ builds:
 
 dockers:
   - image_templates:
-      - "ghcr.io/rraymondgh/{{ .ProjectName }}"
+      - "ghcr.io/rraymondgh/{{ .ProjectName }}:latest"
+      - "ghcr.io/rraymondgh/{{ .ProjectName }}:{{ .Tag }}"
     goos: linux
     goarch: amd64
     dockerfile: goreleaser.Dockerfile

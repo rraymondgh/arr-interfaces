@@ -27,8 +27,8 @@ services:
       - arr-network
 
   bitmagnet:
-    # image: bitmagnet:local
-    image: ghcr.io/bitmagnet-io/bitmagnet:v0.10.0-beta.7
+    image: bitmagnet:local
+    # image: ghcr.io/bitmagnet-io/bitmagnet:v0.10.0-beta.7
     container_name: bitmagnet
     ports:
       - "3333:3333"
