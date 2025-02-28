@@ -27,3 +27,4 @@ arr-interfaces
 dist/
 jupyter/.ipynb_checkpoints/
 jupyter/
+.direnv/
